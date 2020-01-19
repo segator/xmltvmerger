@@ -10,7 +10,7 @@ read -ra GITREPOARRAY <<< "$GIT_REPO_LIST"
 i=0
 for j in "${GITREPOARRAY[@]}"; do
   echo "cloning ${j}.."
-  initrepo.sh "$j" $i
+  /initrepo.sh "$j" $i
   i=i+1
 done
 
