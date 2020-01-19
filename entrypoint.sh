@@ -11,22 +11,23 @@ i=0
 for j in "${GITREPOARRAY[@]}"; do
   echo "cloning ${j}.."
   /initrepo.sh "$j" $i
-  i=i+1
+  i=$((i+1))
 done
 
 cd /data
 i=0
 output=""
 for filename in /data/*.xml; do
-if [ $i -eq 0 ]
-then
-  output=$filename
-else
-  tv_merge -i $output -m $filename -o output.xml
-  cp output.xml output_init.xml
-  $output=output_init.xml
-fi
-i=i+1
+  if [ $i -eq 0 ]
+  then
+    output=$filename
+  else
+    echo "tv_merge -i $output -m $filename -o output.xml"
+    tv_merge -i $output -m $filename -o output.xml
+    cp output.xml output_init.xml
+    output=output_init.xml
+  fi
+  i=$((i+1))
 done
 
 
